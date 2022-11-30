@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'qg0y+a@)c3%)(i*z#e6)7n30r%k^^m@hqssc$&iomf2$q0&l(y'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.56.101', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['.herokuapp.com','192.168.56.101', '127.0.0.1']
 
 
 # Application definition
@@ -87,9 +87,9 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'test',
-        'USER':'admin',
-        'PASSWORD': 'kdh12916!',
+        'NAME': os.environ['DATABASE_NAME'],
+        'USER':os.environ['DATABASE_USER'],
+        'PASSWORD': os.environ['DATABASE_PASSWORD'],
         'HOST': 'django-mysql-3503.cfppakevtbhf.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
@@ -98,6 +98,8 @@ DATABASES = {
     }
 }
 
+    
+   
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -150,16 +152,18 @@ TAGGIT_CASE_INSENSITIVE = True
 TAGGIT_LIMIT = 50
 
 DISQUS_SHORTNAME = 'pydjango-web-programming'
-DISQUS_MY_DOMAIN = 'http://192.168.56.101:8000'
+# DISQUS_MY_DOMAIN = 'http://192.168.56.101:8000'
+DISQUS_MY_DOMAIN ='https://dhkwakheroku.herokuapp.com/'
 
 LOGIN_REDIRECT_URL = '/'
 
 STATICFILES_STORAGE = 'mysite.storage.S3StaticStorage'
 DEFAULT_FILE_STORAGE = 'mysite.storage.S3MediaStorage'
 
-AWS_ACCESS_KEY_ID = 'AKIA5VXAFU2TJN7GAEVT'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_S3_REGION_NAME = 'ap-northeast-2'
 AWS_STORAGE_BUCKET_NAME = 'dhkwak-bucket'
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
 AWS_DEFAULT_ACL = 'public-read'
+
